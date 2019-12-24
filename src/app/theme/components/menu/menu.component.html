@@ -1,0 +1,85 @@
+<mat-toolbar class="top-navbar mat-elevation-z2" fxLayoutAlign="center center">
+    <a mat-button routerLink="/" routerLinkActive="horizontal-active-link" 
+    [routerLinkActiveOptions]="{exact:true}">Home</a>
+    <a mat-button [matMenuTriggerFor]="menu" (click)="openMegaMenu()">category<mat-icon class="caret">
+        arrow_drop_down</mat-icon></a>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false" class="mega-menu app-dropdown">
+        <div fxLayout="row wrap">
+            <div fxFlex="20" fxLayout="column" class="p-1"> 
+                <a mat-menu-item routerLink="/"><b>Main category</b></a>
+                <mat-divider></mat-divider> 
+                <a mat-menu-item routerLink="/">child category</a>
+                <a mat-menu-item routerLink="/">child category</a>              
+                <a mat-menu-item routerLink="/">child category</a>
+                <a mat-menu-item routerLink="/">child category</a>
+                <a mat-menu-item routerLink="/">child category</a>                
+            </div>
+            <div fxFlex="20" class="p-1"> 
+                <a mat-menu-item routerLink="/"><b>Main category</b></a>
+                <mat-divider></mat-divider> 
+                <button mat-menu-item>child category</button>
+                <button mat-menu-item>child category</button> 
+                <button mat-menu-item>child category</button> 
+                <button mat-menu-item>child category</button> 
+            </div>
+            <div fxFlex="20" class="p-1"> 
+                <a mat-menu-item routerLink="/"><b>main category</b></a>
+                <mat-divider></mat-divider> 
+                <button mat-menu-item>child category</button>
+                <button mat-menu-item> child category </button>
+                <button mat-menu-item>child category</button> 
+                <button mat-menu-item>child category</button> 
+                <button mat-menu-item> child category</button> 
+            </div>
+            <div fxFlex="20" class="p-1"> 
+                <a mat-menu-item routerLink="/"><b>main category</b></a>
+                <mat-divider></mat-divider>                
+                <button mat-menu-item>child category</button>  
+                <button mat-menu-item>child category</button>
+                <button mat-menu-item>child category</button> 
+                <button mat-menu-item>child category</button> 
+            </div>
+            <div fxFlex="20" class="p-1"> 
+                <a mat-menu-item routerLink="/"><b>main category</b></a>
+                <mat-divider></mat-divider>                
+                <button mat-menu-item>child category</button>  
+                <button mat-menu-item>child category</button>
+                <button mat-menu-item>child category</button> 
+                <button mat-menu-item>child category</button> 
+            </div>
+           
+        </div>
+           
+    </mat-menu>
+    
+    <a mat-button [routerLink]="['/products', 'jewellery']" 
+    routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">Category</a>
+    <a mat-button [routerLink]="['/products', 'electronics']" routerLinkActive="horizontal-active-link"
+     [routerLinkActiveOptions]="{exact:true}">Category</a>
+    <a mat-button [routerLink]="['/products', 'sports']"
+     routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">Category</a>
+    <a mat-button [routerLink]="['/products', 'motors']" routerLinkActive="horizontal-active-link"
+     [routerLinkActiveOptions]="{exact:true}">Category</a>
+
+    <a mat-button [matMenuTriggerFor]="animals">Pages<mat-icon class="caret">arrow_drop_down</mat-icon></a>
+    <mat-menu #animals="matMenu" [overlapTrigger]="false" class="app-dropdown"> 
+        <a mat-menu-item routerLink="/products" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">All products</a> 
+        <a mat-menu-item [routerLink]="['/products', '2', 'PC All-in-One']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">Product detail</a> 
+        <a mat-menu-item routerLink="/contact" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">Contact</a>  
+        <a mat-menu-item routerLink="/sign-in">Sign in</a>       
+        <a mat-menu-item routerLink="/404">404 Error</a>
+    </mat-menu>
+<!--
+
+        <a mat-menu-item [matMenuTriggerFor]="others">Others</a>
+    <mat-menu #others="matMenu" class="app-dropdown">
+        <a mat-menu-item href="http://themeseason.com" target="_blank">External Link</a>
+        <a mat-menu-item>Menu item</a>
+        <a mat-menu-item>Menu item</a>
+        <a mat-menu-item>Menu item</a>
+    </mat-menu>-->
+    
+    <a mat-button routerLink="/contact" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">Contact</a>
+
+</mat-toolbar>
+

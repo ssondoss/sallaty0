@@ -1,0 +1,47 @@
+<nav   class="navbar  navbar-expand-md green navbar-dark ">
+    <a class="navbar-brand" routerLink="" >Sallaty</a>
+    <button (click)="isMenuCollapsed = !isMenuCollapsed" class="navbar-toggler "
+     type="button" data-toggle="collapse" 
+    data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" 
+    aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon "></span>
+    </button>
+  
+    <div  [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item ">
+          <a class="nav-link " routerLink="" >Home </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/admin-cat" >Categories</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " routerLink="/admin-prod" >Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " routerLink="/sub-admin"  >Admins</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " routerLink="/admin-ord"  >Orders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " routerLink="/admin-user"  >Users</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " routerLink="/admin-dc"  >Discount Codes</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link " href="#" >Log out</a>
+        </li>
+        <!--<li ngbDropdown class="nav-item dropdown ">
+          <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <div ngbDropdownMenu class="dropdown-menu " aria-labelledby="dropdown01">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>-->
+      </ul>
+    </div>
+  </nav>
+  

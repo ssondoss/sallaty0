@@ -25,14 +25,26 @@ import { AppService } from './app.service';
 import { AppInterceptor } from './theme/utils/app-interceptor';
 import { OptionsComponent } from './theme/components/options/options.component';
 import { FooterComponent } from './theme/components/footer/footer.component';
-
+import { pathToFileURL } from 'url';
+import {RouterModule} from '@angular/router'
+import {  NavbarComponent } from './admin/navbar/navbar.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap' ;
+import { from } from 'rxjs';
+import { SubAdminsComponent } from './admin/sub-admins/sub-admins.component';
+import { DcComponent } from './admin/dc/dc.component';
+import { CategoryComponent } from './admin/category/category.component';
+import { ProductComponent } from './admin/product/product.component';
+import { UserComponent } from './admin/user/user.component';
+import { OrdersComponent } from './orders/orders.component';
 
 @NgModule({
    imports: [
     BrowserModule,
+    NgbModule,
     BrowserAnimationsModule,
     HttpClientModule,
     NgxSpinnerModule,
+
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDLf9Ywk47zipEtorDewwMmB3JtuXdzYL4'
     }),
@@ -48,7 +60,14 @@ import { FooterComponent } from './theme/components/footer/footer.component';
     SidenavMenuComponent,
     BreadcrumbComponent,
     OptionsComponent,
-    FooterComponent    
+    FooterComponent,
+    SubAdminsComponent,
+    NavbarComponent,
+    DcComponent,
+    CategoryComponent,
+    ProductComponent,
+    UserComponent,
+    OrdersComponent,
   ], 
   providers: [
     AppSettings,

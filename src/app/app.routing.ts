@@ -1,10 +1,25 @@
 import { Routes, RouterModule, PreloadAllModules  } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
-
 import { PagesComponent } from './pages/pages.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { SubAdminsComponent } from './admin/sub-admins/sub-admins.component';
+import { DcComponent } from './admin/dc/dc.component';
+import { CategoryComponent } from './admin/category/category.component';
+import { ProductComponent } from './admin/product/product.component';
+import {  NavbarComponent } from './admin/navbar/navbar.component';
+import { UserComponent } from './admin/user/user.component';
+import { OrdersComponent } from './orders/orders.component';
+
+
+
 
 export const routes: Routes = [
+    {path:'admin-prod', component:ProductComponent },
+    {path:'admin-cat', component:CategoryComponent},
+    {path:'sub-admin', component:SubAdminsComponent},
+    {path:'admin-dc', component:DcComponent},
+    {path:'admin-user', component:UserComponent},
+    {path:'admin-ord', component:OrdersComponent},
     { 
         path: '', 
         component: PagesComponent, children: [

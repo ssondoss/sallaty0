@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { emailValidator, matchingPasswords } from '../../theme/utils/app-validators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-sign-in',
@@ -12,8 +15,8 @@ import { emailValidator, matchingPasswords } from '../../theme/utils/app-validat
 export class SignInComponent implements OnInit {
   loginForm: FormGroup;
   registerForm: FormGroup;
-
-  constructor(public formBuilder: FormBuilder, public router:Router, public snackBar: MatSnackBar) { }
+// first thing you have to create the http in the constructor like this one ?okay ?
+  constructor(public formBuilder: FormBuilder, public router: Router, public snackBar: MatSnackBar , private http: HttpClient ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -24,21 +27,30 @@ export class SignInComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       'email': ['', Validators.compose([Validators.required, emailValidator])],
+      'mobile' : [''],
       'password': ['', Validators.required],
       'confirmPassword': ['', Validators.required]
     },{validator: matchingPasswords('password', 'confirmPassword')});
 
   }
 
-  public onLoginFormSubmit(values:Object):void {
+  public onLoginFormSubmit(values: Object): void {
+    res: String;
     if (this.loginForm.valid) {
-      this.router.navigate(['/']);
     }
   }
 
-  public onRegisterFormSubmit(values:Object):void {
+  public onRegisterFormSubmit(values: Object ): void {
     if (this.registerForm.valid) {
-      this.snackBar.open('You registered successfully!', '×', { panelClass: 'success', verticalPosition: 'top', duration: 3000 });
+      this.http.post( environment.apiUrl , this.registerForm.value).subscribe({
+        next: response => { this.snackBar.open('You registered successfully!', 
+                    '×', { panelClass: 'success', verticalPosition: 'top', duration: 3000 });  
+                      },
+        error: (response: HttpErrorResponse) => {
+                      this.snackBar.open('You registered Unsuccessfully!', 
+                    '×', { panelClass: 'error', verticalPosition: 'top', duration: 3000 });
+                }
+      });
     }
   }
 

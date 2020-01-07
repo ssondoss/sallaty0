@@ -36,6 +36,7 @@ import { CategoryComponent } from './admin/category/category.component';
 import { ProductComponent } from './admin/product/product.component';
 import { UserComponent } from './admin/user/user.component';
 import { OrdersComponent } from './orders/orders.component';
+import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
    imports: [
@@ -43,6 +44,8 @@ import { OrdersComponent } from './orders/orders.component';
     NgbModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     NgxSpinnerModule,
 
     AgmCoreModule.forRoot({
@@ -69,8 +72,10 @@ import { OrdersComponent } from './orders/orders.component';
     UserComponent,
     OrdersComponent,
   ], 
+  exports:[ReactiveFormsModule],
   providers: [
     AppSettings,
+    FormBuilder,
     AppService,   
     { provide: OverlayContainer, useClass: CustomOverlayContainer },
     { provide: MAT_MENU_SCROLL_STRATEGY, useFactory: menuScrollStrategy, deps: [Overlay] },

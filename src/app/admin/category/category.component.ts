@@ -20,7 +20,7 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit() {
     this.URL=environment.apiUrl+'/category';
-    this.tableFilling();
+    this.getCategories();
     this.newCategoryForm = this.formBuilder.group({
       'titleEnglish': ['', Validators.required],
       'titleArabic': ['', Validators.required],
@@ -28,11 +28,10 @@ export class CategoryComponent implements OnInit {
       'descriptionArabic': ['', Validators.required]});
     }
 
-    private tableFilling():void{
+    private getCategories():void{
       this.http.get(this.URL)
       .subscribe((data) => {
-         this.categoryArray = data
-          console.log(data)});  
+         this.categoryArray = data});  
     }
   public onAddCategory(values: Object):void{
     this.http.post(this.URL, this.newCategoryForm.value).subscribe({
@@ -46,7 +45,7 @@ export class CategoryComponent implements OnInit {
                   this.refresh(); 
               }
     });
-    this.tableFilling();
+    this.getCategories();
   }
   public deleteCategory(category:any ):void{
     const params = new HttpParams().set('id', category.id);
@@ -61,7 +60,7 @@ export class CategoryComponent implements OnInit {
         this.refresh(); 
         }
     });
-    this.tableFilling();
+    this.getCategories();
   }
   private refresh(): void {
     window.location.reload();

@@ -3,26 +3,25 @@
     <div class="panel-heading" > Products</div>
                         
    
-      <form>
+      <form [formGroup]="newProductForm" (ngSubmit)="onAddProduct(newProductForm.value)">
         <div class="form-row">
           <div class="form-group col-md-2">
             <label >Product Title</label>
-            <input type="text" class="form-control" id="" >
+            <input type="text" class="form-control" id="" formControlName="titleEnglish" required> 
           </div>
           <div class="form-group col-md-2 AR">
             <label >اسم المنتج</label>
-            <input type="text" class="form-control" id="" >
+            <input type="text" class="form-control" id="" formControlName="titleArabic" required>
           </div>
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-2" >
             <label >Description</label>
-            <textarea id='descEN' class="form-control" name="description"
-                placeholder="Category description">
+            <textarea id='descEN' class="form-control" name="description" required formControlName="descriptionEnglish">
             </textarea>
             <p id="countEN">250</p>
         </div>
         <div class="form-group col-md-2 AR">
             <label>الوصف</label>
-            <textarea class="form-control" name="descriptionAR"></textarea>
+            <textarea class="form-control" name="descriptionAR" formControlName="descriptionArabic" required></textarea>
             <p id="">250</p>
         </div>
        
@@ -33,27 +32,25 @@
 
         <div class="form-group col-md-2">
             <label > Price in JD</label>
-            <input type="number" class="form-control" id="">
+            <input type="number" class="form-control" id="" formControlName="priceJD" required>
           </div>
           <div class="form-group col-md-2">
             <label > Price in SUR</label>
-            <input type="number" class="form-control" id="">
+            <input type="number" class="form-control" id="" formControlName="priceSAR" required>
           </div>
           <div class="form-group col-md-2">
             <label > Count</label>
-            <input type="number" class="form-control" id="">
+            <input type="number" class="form-control" id="" formControlName="availability" required>
           </div>
          
         <div class="form-group col-md-3">
             <label  >Main Category</label>
-            <select class="form-control" name="" >             
-                <option  value="1">a</option>
-                <option value="2">b</option>
-                <option value="3">c</option>
+            <select class="form-control" name="" formControlName="categoryId" required>      
+                <option *ngFor="let category of categoryArray" [value]="category.id">{{category.titleEnglish}} | {{category.titleArabic}}</option>
             </select>
         </div>
         <div class=" col-md-2">
-            <button type="button" class="btn btn-success">Add product</button>
+            <button type="button" class="btn btn-success" (click)="onAddProduct(newProductForm.value)">Add product</button>
         </div>
         </div>
       </form>                          
@@ -76,6 +73,19 @@
                 <th class="six" > Delete </th>
                 </tr>
             </thead>
+            <tr *ngFor="let product of productArray">
+              <td>{{product.titleEnglish}}</td>
+              <td>{{product.titleArabic}}</td>
+              <td>{{product.descriptionEnglish}}</td>
+              <td>{{product.descriptionArabic}}</td>
+              <td>{{product.image}}</td>
+              <td>{{product.priceJD}}</td>
+              <td>{{product.priceSAR}}</td>
+              <td>{{product.availability}}</td>
+              <td>{{product.categoryId}}</td>
+              <td><button type="submit" class="btn btn-primary sub-btn">Update</button></td>
+              <td><button type="submit" class="btn btn-danger" (click)="deleteProduct(product)">Delete</button></td>
+           </tr>
                
             </table>  
     

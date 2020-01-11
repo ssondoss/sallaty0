@@ -1,4 +1,4 @@
-<mat-sidenav-container>
+<!--<mat-sidenav-container>
     <mat-sidenav #sidenav [opened]="sidenavOpen" [mode]="sidenavOpen ? 'side' : 'over'" class="filter-sidenav" perfectScrollbar>
         
         <mat-accordion displayMode="flat" multi="true">
@@ -92,7 +92,7 @@
                    <a [routerLink]="['/products/electronics']"><img src="assets/images/products/probook/2-medium.png" alt="" class="mw-100"></a>
                 </div>
             </mat-expansion-panel>
-        -->
+       
         </mat-accordion>
 
     </mat-sidenav>
@@ -165,7 +165,7 @@
         </div>
 
         <div *ngIf="viewType == 'list'" fxLayout="row wrap" class="products-wrapper">
-            <div  *ngFor="let product of products | paginate: { itemsPerPage: count, currentPage: page }" fxFlex="100" class="col">
+            <div  fxFlex="100" class="col">
                 <mat-card class="product-item">
                     <div fxLayout="row wrap">
                         <div fxFlex="100" fxFlex.gt-xs="40" class="p-2">
@@ -206,4 +206,42 @@
         </div>
         
     </mat-sidenav-content>
-</mat-sidenav-container>
+</mat-sidenav-container>-->
+
+<div class="container">
+
+    <div class="row">
+    <div class="col-md-4" *ngFor="let product of productsArray">
+        <figure class="card card-product">
+            <div class="img-wrap"><img src="https://images.unsplash.com/photo-1500531359996-c89a0e63e49c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjExMjU4fQ&auto=format&fit=crop&w=1649&q=80"></div>
+            <figcaption class="info-wrap">
+                    <h4 class="title">{{product.titleEnglish}}</h4>
+                    <p class="desc">{{product.descriptionEnglish}}</p>
+                    <div class="rating-wrap">
+                        <div class="label-rating">{{product.availability}} Available </div>
+                    </div> <!-- rating-wrap.// -->
+                    <div class="price-wrap h5">
+                        <br>
+                        <span class="price-new">{{product.priceSAR}} SAR</span>
+                        <br>
+                        <span class="price-new">{{product.priceJD}} JD</span>
+                         <!--<del class="price-old">$1980</del>-->
+                    </div> <!-- price-wrap.// -->
+            </figcaption>
+            <div class="bottom-wrap">
+               <!-- <a href="" class="btn btn-sm btn-primary" mat-raised-button color="primary" class="mt-2">Shop now</a>-->
+                <div class="icons">
+                    <app-controls [product]="product" (onOpenProductDialog)="openProductDialog(product)">
+
+                    </app-controls>
+                </div>
+            </div> <!-- bottom-wrap.// -->
+        </figure>
+    </div> <!-- col // -->
+    </div> <!-- row.// -->
+    
+    
+    
+    </div> 
+    <!--container.//-->
+    

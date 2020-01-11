@@ -1,20 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { AppService } from '../../app.service';
+import { Component, OnInit } from "@angular/core";
+import { AppService } from "../../app.service";
 import { Product } from "../../app.models";
-
+import { Router } from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatSnackBar } from "@angular/material";
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams
+} from "@angular/common/http";
+import { environment } from "src/environments/environment";
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.scss"]
 })
 export class HomeComponent implements OnInit {
-
   public slides = [
-    { title: 'The biggest sale', subtitle: 'Special for today', image: 'assets/images/carousel/banner1.jpg' },
-    { title: 'Summer collection', subtitle: 'New Arrivals On Sale', image: 'assets/images/carousel/banner2.jpg' },
-    { title: 'The biggest sale', subtitle: 'Special for today', image: 'assets/images/carousel/banner3.jpg' },
-    { title: 'Summer collection', subtitle: 'New Arrivals On Sale', image: 'assets/images/carousel/banner4.jpg' },
-    { title: 'The biggest sale', subtitle: 'Special for today', image: 'assets/images/carousel/banner5.jpg' }
+    {
+      title: "The biggest sale",
+      subtitle: "Special for today",
+      image: "assets/images/carousel/banner1.jpg"
+    },
+    {
+      title: "Summer collection",
+      subtitle: "New Arrivals On Sale",
+      image: "assets/images/carousel/banner2.jpg"
+    },
+    {
+      title: "The biggest sale",
+      subtitle: "Special for today",
+      image: "assets/images/carousel/banner3.jpg"
+    },
+    {
+      title: "Summer collection",
+      subtitle: "New Arrivals On Sale",
+      image: "assets/images/carousel/banner4.jpg"
+    },
+    {
+      title: "The biggest sale",
+      subtitle: "Special for today",
+      image: "assets/images/carousel/banner5.jpg"
+    }
   ];
 
   public brands = [];
@@ -24,51 +51,65 @@ export class HomeComponent implements OnInit {
   public topRatedProducts: Array<Product>;
   public newArrivalsProducts: Array<Product>;
 
+  categoryArray: any;
+  URL: string;
 
-  constructor(public appService:AppService) { }
+  constructor(
+    public appService: AppService,
+    public formBuilder: FormBuilder,
+    public router: Router,
+    public snackBar: MatSnackBar,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
     this.getBanners();
     this.getProducts("featured");
     this.getBrands();
+    this.URL = environment.apiUrl + "/category";
+    this.getCategories();
+  }
+  private getCategories(): void {
+    this.http.get(this.URL).subscribe((data: any) => {
+      this.categoryArray = data.data;
+      console.log(data);
+    });
   }
 
-  public onLinkClick(e){
-    this.getProducts(e.tab.textLabel.toLowerCase()); 
+  public onLinkClick(e) {
+    this.getProducts(e.tab.textLabel.toLowerCase());
   }
 
-  public getProducts(type){
-    if(type == "featured" && !this.featuredProducts){
-      this.appService.getProducts("featured").subscribe(data=>{
-        this.featuredProducts = data;      
-      }) 
+  public getProducts(type) {
+    if (type == "featured" && !this.featuredProducts) {
+      this.appService.getProducts("featured").subscribe(data => {
+        this.featuredProducts = data;
+      });
     }
-    if(type == "on sale" && !this.onSaleProducts){
-      this.appService.getProducts("on-sale").subscribe(data=>{
-        this.onSaleProducts = data;      
-      })
+    if (type == "on sale" && !this.onSaleProducts) {
+      this.appService.getProducts("on-sale").subscribe(data => {
+        this.onSaleProducts = data;
+      });
     }
-    if(type == "top rated" && !this.topRatedProducts){
-      this.appService.getProducts("top-rated").subscribe(data=>{
-        this.topRatedProducts = data;      
-      })
+    if (type == "top rated" && !this.topRatedProducts) {
+      this.appService.getProducts("top-rated").subscribe(data => {
+        this.topRatedProducts = data;
+      });
     }
-    if(type == "new arrivals" && !this.newArrivalsProducts){
-      this.appService.getProducts("new-arrivals").subscribe(data=>{
-        this.newArrivalsProducts = data;      
-      })
+    if (type == "new arrivals" && !this.newArrivalsProducts) {
+      this.appService.getProducts("new-arrivals").subscribe(data => {
+        this.newArrivalsProducts = data;
+      });
     }
-   
   }
 
-  public getBanners(){
-    this.appService.getBanners().subscribe(data=>{
+  public getBanners() {
+    this.appService.getBanners().subscribe(data => {
       this.banners = data;
-    })
+    });
   }
 
-  public getBrands(){
+  public getBrands() {
     this.brands = this.appService.getBrands();
   }
-
 }

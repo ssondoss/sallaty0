@@ -1,28 +1,45 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
-import { ProductDialogComponent } from '../../shared/products-carousel/product-dialog/product-dialog.component';
-import { AppService } from '../../app.service';
+import { Component, OnInit, ViewChild, HostListener } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { MatDialog } from "@angular/material";
+import { ProductDialogComponent } from "../../shared/products-carousel/product-dialog/product-dialog.component";
+import { AppService } from "../../app.service";
 import { Product, Category } from "../../app.models";
-import { Settings, AppSettings } from 'src/app/app.settings';
+import { Settings, AppSettings } from "src/app/app.settings";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatSnackBar } from "@angular/material";
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams
+} from "@angular/common/http";
+import { environment } from "src/environments/environment";
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  selector: "app-products",
+  templateUrl: "./products.component.html",
+  styleUrls: ["./products.component.scss"]
 })
 export class ProductsComponent implements OnInit {
-  @ViewChild('sidenav', { static: true }) sidenav: any;
-  public sidenavOpen:boolean = true;
+  private URL: string;
+  private categoryId: number;
+  public productsArray: any;
+
+  @ViewChild("sidenav", { static: true }) sidenav: any;
+  public sidenavOpen: boolean = true;
   private sub: any;
-  public viewType: string = 'grid';
+  public viewType: string = "grid";
   public viewCol: number = 25;
   public counts = [12, 24, 36];
-  public count:any;
-  public sortings = ['Sort by Default', 'Best match', 'Lowest first', 'Highest first'];
-  public sort:any;
+  public count: any;
+  public sortings = [
+    "Sort by Default",
+    "Best match",
+    "Lowest first",
+    "Highest first"
+  ];
+  public sort: any;
   public products: Array<Product> = [];
-  public categories:Category[];
+  public categories: Category[];
   public brands = [];
   public priceFrom: number = 750;
   public priceTo: number = 1599;
@@ -54,114 +71,135 @@ export class ProductsComponent implements OnInit {
     { name: "38", selected: false },
     { name: "46", selected: false },
     { name: "52", selected: false },
-    { name: "13.3\"", selected: false },
-    { name: "15.4\"", selected: false },
-    { name: "17\"", selected: false },
-    { name: "21\"", selected: false },
-    { name: "23.4\"", selected: false }
-  ]; 
-  public page:any;
+    { name: '13.3"', selected: false },
+    { name: '15.4"', selected: false },
+    { name: '17"', selected: false },
+    { name: '21"', selected: false },
+    { name: '23.4"', selected: false }
+  ];
+  public page: any;
   public settings: Settings;
-  constructor(public appSettings:AppSettings, 
-              private activatedRoute: ActivatedRoute, 
-              public appService:AppService, 
-              public dialog: MatDialog, 
-              private router: Router) {
+  constructor(
+    public appSettings: AppSettings,
+    private activatedRoute: ActivatedRoute,
+    public appService: AppService,
+    public dialog: MatDialog,
+    private router: Router,
+    public formBuilder: FormBuilder,
+    public snackBar: MatSnackBar,
+    private http: HttpClient
+  ) {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.categoryId = params["id"];
+      console.log(this.categoryId);
+    });
     this.settings = this.appSettings.settings;
   }
 
   ngOnInit() {
+    this.URL = environment.apiUrl + "/product";
     this.count = this.counts[0];
     this.sort = this.sortings[0];
+    this.getAllProducts();
     this.sub = this.activatedRoute.params.subscribe(params => {
       //console.log(params['name']);
     });
-    if(window.innerWidth < 960){
+    if (window.innerWidth < 960) {
       this.sidenavOpen = false;
-    };
-    if(window.innerWidth < 1280){
+    }
+    if (window.innerWidth < 1280) {
       this.viewCol = 33.3;
-    };
+    }
 
     this.getCategories();
     this.getBrands();
-    this.getAllProducts();   
+    this.getAllProducts();
   }
 
-  public getAllProducts(){
-    this.appService.getProducts("featured").subscribe(data=>{
-      this.products = data; 
-      //for show more product  
+  public getAllProducts() {
+    this.http
+      .get(this.URL + "?filter=categoryProductId||$eq||" + this.categoryId)
+      .subscribe(data => {
+        this.productsArray = data;
+      });
+  }
+
+  public getAllProducts2() {
+    this.appService.getProducts("featured").subscribe(data => {
+      this.products = data;
+      //for show more product
       for (var index = 0; index < 3; index++) {
-        this.products = this.products.concat(this.products);        
+        this.products = this.products.concat(this.products);
       }
     });
   }
 
-  public getCategories(){  
-    if(this.appService.Data.categories.length == 0) { 
+  public getCategories() {
+    if (this.appService.Data.categories.length == 0) {
       this.appService.getCategories().subscribe(data => {
         this.categories = data;
         this.appService.Data.categories = data;
       });
-    }
-    else{
+    } else {
       this.categories = this.appService.Data.categories;
     }
   }
 
-  public getBrands(){
+  public getBrands() {
     this.brands = this.appService.getBrands();
-    this.brands.forEach(brand => { brand.selected = false });
+    this.brands.forEach(brand => {
+      brand.selected = false;
+    });
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
 
-  @HostListener('window:resize')
-  public onWindowResize():void {
-    (window.innerWidth < 960) ? this.sidenavOpen = false : this.sidenavOpen = true;
-    (window.innerWidth < 1280) ? this.viewCol = 33.3 : this.viewCol = 25;
+  @HostListener("window:resize")
+  public onWindowResize(): void {
+    window.innerWidth < 960
+      ? (this.sidenavOpen = false)
+      : (this.sidenavOpen = true);
+    window.innerWidth < 1280 ? (this.viewCol = 33.3) : (this.viewCol = 25);
   }
 
-  public changeCount(count){
+  public changeCount(count) {
     this.count = count;
-    this.getAllProducts(); 
+    this.getAllProducts();
   }
 
-  public changeSorting(sort){
+  public changeSorting(sort) {
     this.sort = sort;
   }
 
-  public changeViewType(viewType, viewCol){
+  public changeViewType(viewType, viewCol) {
     this.viewType = viewType;
     this.viewCol = viewCol;
   }
 
-  public openProductDialog(product){   
+  public openProductDialog(product: any) {
     let dialogRef = this.dialog.open(ProductDialogComponent, {
-        data: product,
-        panelClass: 'product-dialog',
-        direction: (this.settings.rtl) ? 'rtl' : 'ltr'
+      data: product,
+      panelClass: "product-dialog",
+      direction: this.settings.rtl ? "rtl" : "ltr"
     });
     dialogRef.afterClosed().subscribe(product => {
-      if(product){
-        this.router.navigate(['/products', product.id, product.name]); 
+      if (product) {
+        this.router.navigate(["/products", product.id, product.titleArabic]);
       }
     });
   }
 
-  public onPageChanged(event){
-      this.page = event;
-      this.getAllProducts(); 
-      window.scrollTo(0,0); 
+  public onPageChanged(event) {
+    this.page = event;
+    this.getAllProducts();
+    window.scrollTo(0, 0);
   }
 
-  public onChangeCategory(event){
-    if(event.target){
-      this.router.navigate(['/products', event.target.innerText.toLowerCase()]); 
-    }   
+  public onChangeCategory(event) {
+    if (event.target) {
+      this.router.navigate(["/products", event.target.innerText.toLowerCase()]);
+    }
   }
-
 }

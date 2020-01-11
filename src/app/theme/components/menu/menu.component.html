@@ -8,59 +8,12 @@
             <div fxFlex="20" fxLayout="column" class="p-1"> 
                 <a mat-menu-item routerLink="/"><b>Main category</b></a>
                 <mat-divider></mat-divider> 
-                <a mat-menu-item routerLink="/">child category</a>
-                <a mat-menu-item routerLink="/">child category</a>              
-                <a mat-menu-item routerLink="/">child category</a>
-                <a mat-menu-item routerLink="/">child category</a>
-                <a mat-menu-item routerLink="/">child category</a>                
+                <a *ngFor="let category of categoryArray" mat-menu-item  (click)="goProducts(category.id)">{{category.titleEnglish}} || {{category.titleArabic}}</a>              
             </div>
-            <div fxFlex="20" class="p-1"> 
-                <a mat-menu-item routerLink="/"><b>Main category</b></a>
-                <mat-divider></mat-divider> 
-                <button mat-menu-item>child category</button>
-                <button mat-menu-item>child category</button> 
-                <button mat-menu-item>child category</button> 
-                <button mat-menu-item>child category</button> 
-            </div>
-            <div fxFlex="20" class="p-1"> 
-                <a mat-menu-item routerLink="/"><b>main category</b></a>
-                <mat-divider></mat-divider> 
-                <button mat-menu-item>child category</button>
-                <button mat-menu-item> child category </button>
-                <button mat-menu-item>child category</button> 
-                <button mat-menu-item>child category</button> 
-                <button mat-menu-item> child category</button> 
-            </div>
-            <div fxFlex="20" class="p-1"> 
-                <a mat-menu-item routerLink="/"><b>main category</b></a>
-                <mat-divider></mat-divider>                
-                <button mat-menu-item>child category</button>  
-                <button mat-menu-item>child category</button>
-                <button mat-menu-item>child category</button> 
-                <button mat-menu-item>child category</button> 
-            </div>
-            <div fxFlex="20" class="p-1"> 
-                <a mat-menu-item routerLink="/"><b>main category</b></a>
-                <mat-divider></mat-divider>                
-                <button mat-menu-item>child category</button>  
-                <button mat-menu-item>child category</button>
-                <button mat-menu-item>child category</button> 
-                <button mat-menu-item>child category</button> 
-            </div>
-           
+
         </div>
            
     </mat-menu>
-    
-    <a mat-button [routerLink]="['/products', 'jewellery']" 
-    routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">Category</a>
-    <a mat-button [routerLink]="['/products', 'electronics']" routerLinkActive="horizontal-active-link"
-     [routerLinkActiveOptions]="{exact:true}">Category</a>
-    <a mat-button [routerLink]="['/products', 'sports']"
-     routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">Category</a>
-    <a mat-button [routerLink]="['/products', 'motors']" routerLinkActive="horizontal-active-link"
-     [routerLinkActiveOptions]="{exact:true}">Category</a>
-
     <a mat-button [matMenuTriggerFor]="animals">Pages<mat-icon class="caret">arrow_drop_down</mat-icon></a>
     <mat-menu #animals="matMenu" [overlapTrigger]="false" class="app-dropdown"> 
         <a mat-menu-item routerLink="/products" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">All products</a> 

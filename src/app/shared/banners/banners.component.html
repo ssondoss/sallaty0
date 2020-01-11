@@ -1,65 +1,67 @@
-<div class="banners-container" fxLayout="column" fxLayout.gt-sm="row" *ngIf="banners.length > 0">
+   <!--<div class="banners-container" fxLayout="column" fxLayout.gt-sm="row" *ngIf="banners.length > 0">
+    
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div><div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    
+
     <div fxLayout="row" fxLayout.gt-sm="column" fxLayout.xs="column" fxFlex="100" fxFlex.gt-sm="40">
-        <div class="banner" fxFlex="50" fxFlex.gt-sm="67" [ngStyle]="">
+        <div
+         *ngFor="let category of categoryArray"
+          class="banner" fxFlex="50" fxFlex.gt-sm="67" [ngStyle]="">
             <div class="info" fxLayoutAlign="start start">
                 <div class="px-2" fxLayout="column" fxLayoutAlign="center center">
-                    <h1 class="title">Main Category</h1>
-                    <h3 class="subtitle">subtitle</h3>
-                    <a [routerLink]="['/products']" mat-raised-button color="primary" class="mt-2">Shop now</a>
+                    <h1 class="title">{{category.titleEnglish}}</h1>
+                    <h3 class="subtitle">{{category.titleEnglish}}</h3>
+                    <a href="/products?id={{category.id}}" mat-raised-button color="primary" class="mt-2">Shop now</a>
                 </div> 
             </div> 
         </div>
-        <div fxLayout="row" fxFlex="50" fxFlex.gt-sm="33">
-            <div class="banner" fxFlex [ngStyle]="">
-                <div class="info" fxLayoutAlign="center center">
-                    <div class="px-2" fxLayout="column" fxLayoutAlign="end center">
-                      <h2 class="title">Main Category</h2>
-                      <h4 class="subtitle">subtitle</h4>
-                      <a [routerLink]="['/products']" mat-raised-button color="primary" class="mt-2">Shop now</a>
-                    </div> 
-                </div> 
-            </div>
-            <div class="banner" fxFlex [ngStyle]="">
-                <div class="info" fxFlex fxLayoutAlign="center center">
-                    <div class="px-2" fxLayout="column" fxLayoutAlign="end center">
-                      <h2 class="title">Main Category</h2>
-                      <h4 class="subtitle">subtitle</h4>
-                      <a [routerLink]="['/products']" mat-raised-button color="primary" class="mt-2">Shop now</a>
-                    </div> 
-                </div> 
-            </div>
-        </div>
     </div>
-    <div fxLayout="row" fxLayout.gt-sm="column" fxLayout.xs="column" fxFlex="100" fxFlex.gt-sm="60">
-        <div fxLayout="row" fxFlexOrder="2" fxFlexOrder.gt-sm="1" fxFlex="50" fxFlex.gt-sm="33">
-            <div class="banner" fxFlex [ngStyle]="">
-                <div class="info" fxLayoutAlign="space-around center">
-                    <div class="px-2" fxLayout="column" fxLayoutAlign="end center">
-                      <h2 class="title">Main Category</h2>
-                      <h4 class="subtitle">subtitle</h4>
-                      <a [routerLink]="['/products']" mat-raised-button color="primary" class="mt-2">Shop now</a>
-                    </div>                    
-                </div>
-            </div>
-            <div class="banner" fxFlex [ngStyle]="">
-                <div class="info" fxLayoutAlign="center center">
-                    <div class="px-2" fxLayout="column" fxLayoutAlign="end center">
-                      <h2 class="title">Main Category</h2>
-                      <h4 class="subtitle">subtitle</h4>
-                      <a [routerLink]="['/products']" mat-raised-button color="primary" class="mt-2">Shop now</a>
-                    </div>
-                </div> 
-            </div>
-        </div>
-        <div class="banner" fxFlexOrder="1" fxFlexOrder.gt-sm="2" fxFlex="50" fxFlex.gt-sm="67" 
-        [ngStyle]="">
-            <div class="info" fxLayout="column" fxLayoutAlign="center end">
-                <div class="px-2" fxLayout="column" fxLayoutAlign="center center">
-                  <h1 class="title">main Category</h1>
-                  <h3 class="subtitle">subtitle</h3>
-                  <a [routerLink]="['/products']" mat-raised-button color="primary" class="mt-2">Shop now</a>
-                </div>
-            </div> 
-        </div>
+</div>--> 
+<div class="row">
+<div class="card" class="col-md-6" *ngFor="let category of categoryArray">
+    <img class="card-img-top" src="https://images.unsplash.com/photo-1500531359996-c89a0e63e49c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjExMjU4fQ&auto=format&fit=crop&w=1649&q=80" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{category.titleEnglish}}</h5>
+      <p class="card-text">{{category.descriptionEnglish}}.</p>
+      <a href="/products?id={{category.id}}"  mat-raised-button color="primary" class="mt-2">Shop now</a>
     </div>
+  </div>
 </div>

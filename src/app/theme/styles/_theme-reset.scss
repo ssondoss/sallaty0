@@ -5,7 +5,7 @@
     $background: map-get($theme, background);
     $foreground: map-get($theme, foreground);
 
-    .bg-primary {
+    .bg-primary-ng {
         @include _mat-toolbar-color($primary);
     }
     .bg-accent {

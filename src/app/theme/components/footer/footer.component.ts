@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Data, AppService } from '../../../app.service';
+import { Settings, AppSettings } from '../../../app.settings';
+
 
 @Component({
   selector: 'app-footer',

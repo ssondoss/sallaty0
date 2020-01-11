@@ -1,64 +1,108 @@
 <navbar></navbar>
 <div class="pad">
-    <div class="panel-heading" > Categories</div>
-                      
-      <form [formGroup]="newCategoryForm" (ngSubmit)="onAddCategory(newCategoryForm.value)">
-        <div class="form-row">
-          <div class="form-group col-md-2">
-            <label >Categoery Title</label>
-            <input type="text" class="form-control" id="" formControlName="titleEnglish" required>
-          </div>
-          <div class="form-group col-md-2 AR" >
-            <label >اسم الصنف</label>
-            <input type="text" class="form-control" formControlName="titleArabic" required>
-          </div>
-        <div class="form-group col-md-2">
-            <label >Description</label>
-            <textarea id='descEN' class="form-control" name="description"
-                placeholder="Category description" formControlName="descriptionEnglish" required>
-            </textarea>
-            <p id="countEN">100</p>
-        </div>
-        <div class="form-group col-md-2 AR" >
-            <label>الوصف</label>
-            <textarea class="form-control" name="descriptionAR" formControlName="descriptionArabic" required></textarea>
-            <p id="">100</p>
-        </div>
-        <div class="form-group col-md-2">
-          <label > Image</label>
-          <input type="file" class="form-control-file" id="" formControlName="image">
-        </div>
-        <div class=" col-md-2">
-            <button type="button" class="btn btn-success" (click)= "onAddCategory(newCategoryForm.value)" >Add Category</button>
-        </div>
-        </div>
-      </form>                          
+  <div class="panel-heading">Categories</div>
 
-    
-    
-        <table class="table table-striped table-bordered ">
-            <thead >
-                <tr class="mid">
-                <th> Title </th>
-                <th > الصنف </th>
-                <th > Description </th>
-                <th > الوصف </th>
-                <th  > Image </th>
-                <th > Delete </th>
-                <th > Delete </th>
-                </tr>
-            </thead>
-            <tr *ngFor="let category of categoryArray">
-              <td>{{category.titleEnglish}}</td>
-              <td>{{category.titleArabic}}</td>
-              <td>{{category.descriptionEnglish}}</td>
-              <td>{{category.descriptionArabic}}</td>
-              <td>{{category.image}}</td>
-              <td><button type="submit" class="btn ">Update</button></td>
-              <td><button type="submit" class="btn " (click)="deleteCategory(category)">Delete</button></td>
-           </tr>
-            </table>  
-    
+  <form
+    [formGroup]="newCategoryForm"
+    (ngSubmit)="onAddCategory(newCategoryForm.value)"
+  >
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        <label>Categoery Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id=""
+          formControlName="titleEnglish"
+          required
+        />
+      </div>
+      <div class="form-group col-md-2 AR">
+        <label>اسم الصنف</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="titleArabic"
+          required
+        />
+      </div>
+      <div class="form-group col-md-2">
+        <label>Description</label>
+        <textarea
+          id="descEN"
+          class="form-control"
+          name="description"
+          placeholder="Category description"
+          formControlName="descriptionEnglish"
+          required
+        >
+        </textarea>
+        <p id="countEN">100</p>
+      </div>
+      <div class="form-group col-md-2 AR">
+        <label>الوصف</label>
+        <textarea
+          class="form-control"
+          name="descriptionAR"
+          formControlName="descriptionArabic"
+          required
+        ></textarea>
+        <p id="">100</p>
+      </div>
+      <div class="form-group col-md-2">
+        <label> Image</label>
+        <input
+          type="file"
+          class="form-control-file"
+          id=""
+          formControlName="imageId"
+          (change)="unploadImage($event)"
+        />
+      </div>
+      <div class=" col-md-2">
+        <button
+          type="button"
+          class="btn btn-success"
+          (click)="onAddCategory(newCategoryForm.value)"
+        >
+          Add Category
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <table class="table table-striped table-bordered ">
+    <thead>
+      <tr class="mid">
+        <th>Title</th>
+        <th>الصنف</th>
+        <th>Description</th>
+        <th>الوصف</th>
+        <th>Image</th>
+        <th>Delete</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tr class="mid" *ngFor="let category of categoryArray">
+      <td>{{ category.titleEnglish }}</td>
+      <td>{{ category.titleArabic }}</td>
+      <td>{{ category.descriptionEnglish }}</td>
+      <td>{{ category.descriptionArabic }}</td>
+      <td>
+        <img
+          src="{{ publicURL + '/images/' + category.image.title }}"
+          alt=""
+          srcset=""
+          width="100px"
+          height="100px"
+        />
+      </td>
+      <td><button type="submit" class="btn ">Update</button></td>
+      <td>
+        <button type="submit" class="btn " (click)="deleteCategory(category)">
+          Delete
+        </button>
+      </td>
+    </tr>
+  </table>
 </div>
-    
-        

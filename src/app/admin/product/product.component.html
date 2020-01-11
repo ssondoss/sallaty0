@@ -45,7 +45,7 @@
          
         <div class="form-group col-md-3">
             <label  >Main Category</label>
-            <select class="form-control" name="" formControlName="categoryId" required>      
+            <select class="form-control" name="" formControlName="categoryProductId" required>      
                 <option *ngFor="let category of categoryArray" [value]="category.id">{{category.titleEnglish}} | {{category.titleArabic}}</option>
             </select>
         </div>
@@ -82,7 +82,7 @@
               <td>{{product.priceJD}}</td>
               <td>{{product.priceSAR}}</td>
               <td>{{product.availability}}</td>
-              <td>{{product.categoryId}}</td>
+              <td>{{product.categoryProductId}}</td>
               <td><button type="submit" class="btn btn-primary sub-btn">Update</button></td>
               <td><button type="submit" class="btn btn-danger" (click)="deleteProduct(product)">Delete</button></td>
            </tr>
